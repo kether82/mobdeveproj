@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Navi Notes</string>
+    <string name="title">Title</string>
+    <string name="date">MM/DD/YY</string>
+    <string name="content">CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT  CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT CONTENT </string>
 </resources>
