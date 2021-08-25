@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -117,8 +118,39 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // open camera(?)
+                Toast.makeText(getApplicationContext(),"Camera", Toast.LENGTH_SHORT);
             }
         });
+
+        chpFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // toggle fav
+                if(chpFav.isChecked()) {
+                }
+                else {
+                    Log.d("fav", "fav");
+                }
+
+            }
+        });
+
+        chpLock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // toggle lock
+                if(chpLock.isChecked()) {
+                }
+                else {
+                    Log.d("lock", "lock");
+                }
+
+            }
+        });
+
+
+
+
 
         /** testing DB
 

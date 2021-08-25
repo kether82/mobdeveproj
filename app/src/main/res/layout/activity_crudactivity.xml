@@ -207,37 +207,65 @@
                     android:id="@+id/chp_crud_save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/custom_yellow"
+                    android:buttonTint="@color/custom_yellow"
                     android:text="Save"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/custom_black"
+                    android:textSize="20sp"
+                    app:chipBackgroundColor="@color/custom_yellow"
+                    app:chipIcon="@drawable/ic_baseline_save_24"
+                    app:chipIconTint="@color/custom_black"
+                    app:chipStrokeColor="@color/custom_black"
+                    app:chipStrokeWidth="0.3dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/custom_yellow"
                     android:text="Delete"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/custom_black"
+                    android:textSize="20sp"
+                    app:chipBackgroundColor="@color/custom_yellow"
+                    app:chipIcon="@drawable/ic_baseline_delete_24"
+                    app:chipIconTint="@color/custom_black"
+                    app:chipStrokeColor="@color/custom_black"
+                    app:chipStrokeWidth="0.3dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_lock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/custom_yellow"
+                    android:checkable="true"
                     android:text="Lock"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/custom_black"
+                    android:textSize="20sp"
+                    app:checkedIcon="@drawable/ic_baseline_lock_24"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/custom_black"
+                    app:chipBackgroundColor="@color/custom_yellow"
+                    app:chipIconEnabled="true"
+                    app:chipStrokeColor="@color/custom_black"
+                    app:chipStrokeWidth="0.3dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_fav"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/custom_yellow"
+                    android:checkable="true"
+                    android:checked="false"
                     android:text="Favorite"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textColor="@color/custom_black"
+                    android:textSize="20sp"
+                    app:checkedIcon="@drawable/ic_baseline_favorite_24"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconTint="@color/custom_black"
+                    app:chipBackgroundColor="@color/custom_yellow"
+                    app:chipIconEnabled="true"
+                    app:chipStrokeColor="@color/custom_black"
+                    app:chipStrokeWidth="0.3dp" />
 
             </LinearLayout>
 
@@ -248,7 +276,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:backgroundTint="@color/custom_black"
                 app:borderWidth="0dp"
                 app:fabCustomSize="72dp"
