@@ -1,6 +1,7 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crudactivity);
+        setContentView(R.layout.activity_main);
 
 //        this.dataNotes =
         this.initComponents();
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initComponents(){
         this.rvNotes = findViewById(R.id.rv_notes);
-        this.rvNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
 //        this.rvNotes.setAdapter(new NoteAdapter(this.dataNotes));
     }
 }
