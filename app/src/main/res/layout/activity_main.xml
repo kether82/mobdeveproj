@@ -6,6 +6,168 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/nav_bar"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:background="@color/custom_black"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_crud_upperbody" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_crud_navbar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_bar"
+        app:layout_constraintEnd_toEndOf="@+id/nav_bar"
+        app:layout_constraintStart_toStartOf="@+id/nav_bar"
+        app:layout_constraintTop_toTopOf="@+id/nav_bar">
+
+        <ImageButton
+            android:id="@+id/btn_crud_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/custom_black"
+            android:paddingBottom="24dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_crud_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_home_24"
+            app:tint="@color/custom_pink" />
+
+        <ImageButton
+            android:id="@+id/btn_crud_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/custom_black"
+            android:paddingBottom="24dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_crud_more"
+            app:layout_constraintStart_toEndOf="@+id/btn_crud_home"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_search_24"
+            app:tint="@color/custom_pink" />
+
+        <ImageButton
+            android:id="@+id/btn_crud_more"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/custom_black"
+            android:paddingBottom="24dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_crud_search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_more_vert_24"
+            app:tint="@color/custom_pink" />
+
+        <TextView
+            android:id="@+id/tv_crud_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Home"
+            android:textColor="@color/custom_pink"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_crud_home"
+            app:layout_constraintEnd_toEndOf="@+id/btn_crud_home"
+            app:layout_constraintStart_toStartOf="@+id/btn_crud_home" />
+
+        <TextView
+            android:id="@+id/tv_crud_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Search"
+            android:textColor="@color/custom_pink"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_crud_home"
+            app:layout_constraintEnd_toEndOf="@+id/btn_crud_search"
+            app:layout_constraintStart_toEndOf="@+id/btn_crud_home" />
+
+        <TextView
+            android:id="@+id/tv_crud_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="More"
+            android:textColor="@color/custom_pink"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_crud_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_crud_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/cl_crud_upperbody"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/custom_black"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <SearchView
+            android:id="@+id/sv_crud_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:foregroundTint="@color/custom_pink"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search"
+            android:searchHintIcon="@drawable/ic_baseline_search_24"
+            android:searchIcon="@drawable/ic_baseline_search_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="61dp"
+            app:layout_constraintGuide_percent=".10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="338dp"
+            app:layout_constraintGuide_percent=".90" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="61dp"
+            app:layout_constraintGuide_percent=".10" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="324dp"
+            android:layout_height="574dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:layout_constraintStart_toStartOf="@+id/gl_left"
+            app:layout_constraintTop_toTopOf="@+id/gl_top" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
