@@ -3,11 +3,11 @@ package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,15 +31,17 @@ public class CRUDActivity extends AppCompatActivity {
 
 
     //note
-    private TextView tvTitle;
-    private TextView tvContent;
+    private EditText etTitle;
+    private EditText etContent;
     private ImageView ivImage;
+    private TextView tvDate;
 
     //more options
     private Chip chpSave;
     private Chip chpDelete;
     private Chip chpLock;
     private Chip chpFav;
+    private Chip chpEdit;
 
 
     //fab
@@ -56,9 +58,10 @@ public class CRUDActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_crudactivity);
 
-        tvTitle = findViewById(R.id.tv_crud_title);
-        tvContent = findViewById(R.id.tv_crud_content);
+        etTitle = findViewById(R.id.et_crud_title);
+        etContent = findViewById(R.id.et_crud_content);
         ivImage = findViewById(R.id.iv_crud_img);
+        tvDate = findViewById(R.id.tv_crud_date);
 
         tvHome = findViewById(R.id.tv_crud_home);
         tvSearch = findViewById(R.id.tv_crud_search);
@@ -75,7 +78,22 @@ public class CRUDActivity extends AppCompatActivity {
         chpDelete = findViewById(R.id.chp_crud_delete);
         chpLock = findViewById(R.id.chp_crud_lock);
         chpFav = findViewById(R.id.chp_crud_fav);
+        chpEdit = findViewById(R.id.chp_crud_edit);
 
+        Intent i =  getIntent();
+
+        if(i.hasExtra(NoteAdapter.KEY_TITLE)){
+            String title = i.getStringExtra(NoteAdapter.KEY_TITLE);
+            String content = i.getStringExtra(NoteAdapter.KEY_CONTENT);
+            String date = i.getStringExtra(NoteAdapter.KEY_DATE);
+
+            etTitle.setText(title);
+            etContent.setText(content);
+            tvDate.setText(date);
+        } else{
+            chpSave.setText("Add");
+            chpSave.setChipIconResource(R.drawable.ic_baseline_add_24);
+        }
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +136,7 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // open camera(?)
-                Toast.makeText(CRUDActivity.this,"Camera", Toast.LENGTH_SHORT);
+                Toast.makeText(CRUDActivity.this, "Camera", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -140,6 +158,7 @@ public class CRUDActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // toggle lock
                 if(chpLock.isChecked()) {
+
                 }
                 else {
                     Log.d("lock", "lock");
@@ -147,6 +166,50 @@ public class CRUDActivity extends AppCompatActivity {
 
             }
         });
+
+        chpSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper db = new DBHelper(CRUDActivity.this);
+                String title = etTitle.getText().toString().trim();
+                String content = etContent.getText().toString().trim();
+                int fav = convertBooltoInt(chpFav.isChecked());
+                int lock = convertBooltoInt(chpLock.isChecked());
+                // byte[] img;
+                // BitmapFactory.decodeResource(CRUDActivity.this.getResources(), )
+
+                if(chpSave.getText().toString() == "Add"){
+                    // add to db
+
+
+                    db.addNote(title, content, null, fav, lock);
+                    Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
+                }else{
+                    // update
+                }
+            }
+        });
+
+        chpDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // delete
+            }
+        });
+
+        chpEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // allow edit
+                etContent.setInputType(InputType.TYPE_CLASS_TEXT);
+                etTitle.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                etContent.setEnabled(true);
+                etTitle.setEnabled(true);
+            }
+        });
+
+
 
 
 
@@ -172,6 +235,11 @@ public class CRUDActivity extends AppCompatActivity {
         }
         db.deleteAll();
          */
+    }
+
+    public static int convertBooltoInt(boolean bool){
+        if(bool) return 1;
+        else return 0;
     }
 
 }
