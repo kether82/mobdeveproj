@@ -118,7 +118,7 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // open camera(?)
-                Toast.makeText(getApplicationContext(),"Camera", Toast.LENGTH_SHORT);
+                Toast.makeText(CRUDActivity.this,"Camera", Toast.LENGTH_SHORT);
             }
         });
 
