@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_crud_search"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_more_vert_24"
+            app:srcCompat="@drawable/ic_baseline_sort_by_alpha_24"
             app:tint="@color/custom_pink" />
 
         <TextView
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="More"
+            android:text="Sort"
             android:textColor="@color/custom_pink"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_crud_home"
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="61dp"
-            app:layout_constraintGuide_percent=".10" />
+            app:layout_constraintGuide_percent=".05" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_right"
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="338dp"
-            app:layout_constraintGuide_percent=".90" />
+            app:layout_constraintGuide_percent=".95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_top"
@@ -158,15 +158,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="61dp"
-            app:layout_constraintGuide_percent=".10" />
+            app:layout_constraintGuide_percent=".05" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="324dp"
-            android:layout_height="574dp"
+            android:id="@+id/rv_notes"
+            android:layout_width="366dp"
+            android:layout_height="607dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_right"
             app:layout_constraintStart_toStartOf="@+id/gl_left"
             app:layout_constraintTop_toTopOf="@+id/gl_top" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:clickable="true"
+            android:tint="@color/custom_pink"
+            app:backgroundTint="@color/custom_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:tint="@color/custom_pink" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
