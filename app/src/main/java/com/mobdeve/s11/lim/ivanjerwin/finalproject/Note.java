@@ -7,6 +7,7 @@ public class Note {
     private boolean isFav;
     private boolean isLocked;
     private String password;
+    private Date date;
 
     public byte[] getImage() {
         return image;
@@ -30,6 +31,10 @@ public class Note {
 
     public boolean isLocked() {
         return isLocked;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public int isFavInt(){

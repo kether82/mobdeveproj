@@ -13,6 +13,7 @@
         android:id="@+id/cv_note"
         android:layout_width="431px"
         android:layout_height="487px"
+        android:clickable="true"
         app:cardBackgroundColor="#FAD02C"
         app:cardCornerRadius="24px"
         app:cardElevation="50dp"
