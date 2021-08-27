@@ -183,6 +183,7 @@
             android:elevation="12dp"
             android:enabled="false"
             android:gravity="center_horizontal"
+            android:inputType="textMultiLine"
             android:text="TextView"
             android:textColor="@color/custom_pink"
             android:textSize="24sp"
