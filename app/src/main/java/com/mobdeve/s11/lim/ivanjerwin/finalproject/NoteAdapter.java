@@ -39,7 +39,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
                 intent.putExtra(KEY_ID, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getId());
                 intent.putExtra(KEY_TITLE, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getTitle());
                 intent.putExtra(KEY_CONTENT, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getContent());
-                //intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
+                intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
                 v.getContext().startActivity(intent);
             }
         });

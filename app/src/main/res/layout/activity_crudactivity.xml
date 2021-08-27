@@ -117,7 +117,7 @@
         android:elevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -172,38 +172,54 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/et_crud_content"
+        <TableRow
+            android:id="@+id/tableRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:editable="true"
-            android:elevation="12dp"
-            android:enabled="false"
-            android:gravity="center_horizontal"
-            android:inputType="textMultiLine"
-            android:text="TextView"
-            android:textColor="@color/custom_pink"
-            android:textSize="24sp"
+            android:maxHeight="375dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_crud_titlebar" />
+            app:layout_constraintTop_toBottomOf="@id/cl_crud_titlebar">
+
+            <EditText
+                android:id="@+id/et_crud_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/custom_black"
+                android:editable="true"
+                android:elevation="2dp"
+                android:enabled="false"
+                android:gravity="start"
+                android:hint="Content"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:text="TextView"
+                android:textColor="@color/custom_pink"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </TableRow>
 
         <ImageView
             android:id="@+id/iv_crud_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:maxWidth="400dp"
             android:maxHeight="400dp"
             android:scaleType="fitCenter"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_crud_content"
+            app:layout_constraintStart_toStartOf="@+id/tableRow"
+            app:layout_constraintTop_toBottomOf="@+id/tableRow"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -219,10 +235,10 @@
             <LinearLayout
                 android:id="@+id/ll_crud_more"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/crud_more_rounded"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -289,20 +305,6 @@
                     app:checkedIconTint="@color/custom_black"
                     app:chipBackgroundColor="@color/custom_yellow"
                     app:chipIconEnabled="true"
-                    app:chipStrokeColor="@color/custom_black"
-                    app:chipStrokeWidth="0.3dp" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chp_crud_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textAlignment="center"
-                    android:textColor="@color/custom_black"
-                    android:textSize="20sp"
-                    app:chipBackgroundColor="@color/custom_yellow"
-                    app:chipIcon="@drawable/ic_baseline_edit_24"
-                    app:chipIconTint="@color/custom_black"
                     app:chipStrokeColor="@color/custom_black"
                     app:chipStrokeWidth="0.3dp" />
 
