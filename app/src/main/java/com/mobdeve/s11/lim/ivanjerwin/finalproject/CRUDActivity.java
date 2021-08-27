@@ -81,7 +81,7 @@ public class CRUDActivity extends AppCompatActivity {
         chpDelete = findViewById(R.id.chp_crud_delete);
         chpLock = findViewById(R.id.chp_crud_lock);
         chpFav = findViewById(R.id.chp_crud_fav);
-        chpEdit = findViewById(R.id.chp_crud_edit);
+//        chpEdit = findViewById(R.id.chp_crud_edit);
 
         Intent i =  getIntent();
 
