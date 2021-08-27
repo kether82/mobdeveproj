@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMenuButtons() {
-        this.btnHome = findViewById(R.id.btn_crud_home);
+        this.btnHome = findViewById(R.id.btn_main_home);
         this.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,13 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        this.btnSearch = findViewById(R.id.btn_crud_search);
+        this.btnSearch = findViewById(R.id.btn_main_search);
 
         this.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // show search bar
-                svSearch = findViewById(R.id.sv_crud_search);
+                svSearch = findViewById(R.id.sv_main_search);
                 if ((svSearch.getVisibility() == View.GONE)) {
                     svSearch.setVisibility(View.VISIBLE);
                 } else {
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        this.btnSort = findViewById(R.id.btn_crud_more);
+        this.btnSort = findViewById(R.id.btn_main_sort);
     }
 
     private void storeData() {
