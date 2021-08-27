@@ -113,7 +113,7 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // show 'more' menu
-                if(llCrudMore.getVisibility() == View.GONE){
+                if(llCrudMore.getVisibility() == View.GONE || llCrudMore.getVisibility() == View.INVISIBLE){
                     llCrudMore.setVisibility(View.VISIBLE);
                     fabAddImg.setVisibility(View.GONE);
                 }else{
