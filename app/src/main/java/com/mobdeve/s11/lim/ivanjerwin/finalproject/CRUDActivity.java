@@ -209,7 +209,7 @@ public class CRUDActivity extends AppCompatActivity {
 
 
 
-        chpEdit.setOnClickListener(new View.OnClickListener() {
+       /* chpEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // allow edit
@@ -222,7 +222,7 @@ public class CRUDActivity extends AppCompatActivity {
                 llCrudMore.setVisibility(View.GONE);
                 fabAddImg.setVisibility(View.VISIBLE);
             }
-        });
+        }); */
 
 
 
