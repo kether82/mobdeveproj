@@ -14,6 +14,12 @@ public class Date {
         this.month = c.get(Calendar.MONTH);
     }
 
+    public Date(int year, int month, int day_in_month) {
+        this.year = year;
+        this.day_in_month = day_in_month;
+        this.month = month;
+    }
+
     public String toString() {
         return this.month + "/" + this.day_in_month + "/" + this.year;
     }

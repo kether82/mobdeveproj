@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fabAddNote;
     private ImageButton btnHome, btnSearch, btnSort;
 
-    private ArrayList<Note> dataNotes;
+    private ArrayList<Note> dataNotes = new ArrayList<Note>();
 
     private DBHelper dbHelper;
 
@@ -35,19 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
         initRecyclerview();
         initFabAdd();
+        storeData();
     }
 
     private void initRecyclerview(){
 
-        this.rvNotes = findViewById(R.id.rv_notes);
-        this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
-
-//       this.rvNotes.setAdapter(new NoteAdapter(this.dataNotes));
-        SnapHelper helper = new PagerSnapHelper();
-        helper.attachToRecyclerView(this.rvNotes);
-
         dbHelper = new DBHelper(MainActivity.this);
 
+        this.rvNotes = findViewById(R.id.rv_notes);
+        this.rvNotes.setAdapter(new NoteAdapter(this.dataNotes));
+        this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
+
+        SnapHelper helper = new PagerSnapHelper();
+        helper.attachToRecyclerView(this.rvNotes);
     }
 
     private void initFabAdd() {
@@ -73,7 +74,17 @@ public class MainActivity extends AppCompatActivity {
         });
         this.btnSearch = findViewById(R.id.btn_crud_search);
         this.btnSort = findViewById(R.id.btn_crud_more);
+    }
 
-
+    private void storeData() {
+        Cursor cursor = dbHelper.readAll();
+        if(cursor.getCount() == 0){
+            Toast.makeText(this, "NO DATA", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            while(cursor.moveToNext()) {
+                dataNotes.add( new Note(cursor.getString(1), cursor.getString(2)));
+            }
+        }
     }
 }

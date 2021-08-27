@@ -9,6 +9,12 @@ public class Note {
     private String password;
     private Date date;
 
+    public Note(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.date = new Date();
+    }
+
     public byte[] getImage() {
         return image;
     }
