@@ -163,8 +163,11 @@
             android:clickable="true"
             android:tint="@color/custom_pink"
             app:backgroundTint="@color/custom_black"
+            app:fabCustomSize="72dp"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_right"
+            app:maxImageSize="36dp"
             app:srcCompat="@android:drawable/ic_input_add"
             app:tint="@color/custom_pink" />
 

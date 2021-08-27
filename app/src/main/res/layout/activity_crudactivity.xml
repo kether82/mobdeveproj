@@ -238,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/crud_more_rounded"
                 android:orientation="vertical"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
