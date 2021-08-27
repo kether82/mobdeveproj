@@ -191,6 +191,9 @@ public class CRUDActivity extends AppCompatActivity {
                     returnToMain();
                 }else{
                     // update
+                    DBHelper dbHelper = new DBHelper(CRUDActivity.this);
+                    db.updateNote(id, title, content, null, 0, 0);
+                    returnToMain();
                 }
             }
         });

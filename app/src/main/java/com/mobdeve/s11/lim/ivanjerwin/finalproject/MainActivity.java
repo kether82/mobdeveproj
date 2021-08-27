@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rvNotes;
     private FloatingActionButton fabAddNote;
     private ImageButton btnHome, btnSearch, btnSort;
+    private SearchView svSearch;
 
     private ArrayList<Note> dataNotes = new ArrayList<Note>();
 
@@ -73,6 +75,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         this.btnSearch = findViewById(R.id.btn_crud_search);
+
+        this.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // show search bar
+                svSearch = findViewById(R.id.sv_crud_search);
+                if ((svSearch.getVisibility() == View.GONE)) {
+                    svSearch.setVisibility(View.VISIBLE);
+                } else {
+                    svSearch.setVisibility(View.GONE);
+                }
+            }
+        });
         this.btnSort = findViewById(R.id.btn_crud_more);
     }
 
