@@ -97,6 +97,8 @@ public class CRUDActivity extends AppCompatActivity {
         } else{
             chpSave.setText("Add");
             chpSave.setChipIconResource(R.drawable.ic_baseline_add_24);
+
+            tvDate.setText(new Date().toString());
         }
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -149,9 +151,9 @@ public class CRUDActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // toggle fav
                 if(chpFav.isChecked()) {
+                    Toast.makeText(CRUDActivity.this, "Favorited(?)", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Log.d("fav", "fav");
                 }
 
             }
@@ -162,10 +164,11 @@ public class CRUDActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // toggle lock
                 if(chpLock.isChecked()) {
-
+                    Toast.makeText(CRUDActivity.this, "Locked", Toast.LENGTH_SHORT).show();
+                    // request pw prolly
                 }
                 else {
-                    Log.d("lock", "lock");
+
                 }
 
             }
