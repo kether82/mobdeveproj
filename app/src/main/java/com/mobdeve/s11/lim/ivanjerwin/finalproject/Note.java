@@ -1,6 +1,7 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
 public class Note {
+    private String id;
     private String title;
     private String content;
     private byte[] image;
@@ -9,11 +10,14 @@ public class Note {
     private String password;
     private Date date;
 
-    public Note(String title, String content) {
+    public Note(String id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.date = new Date();
     }
+
+    public String getId() { return id; }
 
     public byte[] getImage() {
         return image;

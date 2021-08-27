@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             while(cursor.moveToNext()) {
-                dataNotes.add( new Note(cursor.getString(1), cursor.getString(2)));
+                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
             }
         }
     }

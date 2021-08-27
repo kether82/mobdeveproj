@@ -1,8 +1,11 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.CrossProcessCursor;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -50,7 +53,7 @@ public class CRUDActivity extends AppCompatActivity {
     //layouts
     private LinearLayout llCrudMore;
 
-
+    String id;
     private DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class CRUDActivity extends AppCompatActivity {
         Intent i =  getIntent();
 
         if(i.hasExtra(NoteAdapter.KEY_TITLE)){
+            id = i.getStringExtra(NoteAdapter.KEY_ID);
             String title = i.getStringExtra(NoteAdapter.KEY_TITLE);
             String content = i.getStringExtra(NoteAdapter.KEY_CONTENT);
             String date = i.getStringExtra(NoteAdapter.KEY_DATE);
@@ -184,6 +188,7 @@ public class CRUDActivity extends AppCompatActivity {
 
                     db.addNote(title, content, null, fav, lock);
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
+                    returnToMain();
                 }else{
                     // update
                 }
@@ -193,9 +198,13 @@ public class CRUDActivity extends AppCompatActivity {
         chpDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // delete
+                DBHelper db = new DBHelper(CRUDActivity.this);
+                db.delNote(id);
+                returnToMain();
             }
         });
+
+
 
         chpEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,10 +215,11 @@ public class CRUDActivity extends AppCompatActivity {
 
                 etContent.setEnabled(true);
                 etTitle.setEnabled(true);
+
+                llCrudMore.setVisibility(View.GONE);
+                fabAddImg.setVisibility(View.VISIBLE);
             }
         });
-
-
 
 
 
@@ -240,6 +250,12 @@ public class CRUDActivity extends AppCompatActivity {
     public static int convertBooltoInt(boolean bool){
         if(bool) return 1;
         else return 0;
+    }
+
+    public void returnToMain() {
+        finish();
+        Intent intent = new Intent(CRUDActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 }

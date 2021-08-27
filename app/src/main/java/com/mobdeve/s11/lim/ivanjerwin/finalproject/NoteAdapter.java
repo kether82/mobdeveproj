@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
+    public static final String KEY_ID = "KEY_ID";
     public static final String KEY_TITLE = "KEY_TITLE";
     public static final String KEY_CONTENT = "KEY_CONTENT";
     public static final String KEY_DATE = "KEY_DATE";
@@ -35,6 +36,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(itemView.getContext(), CRUDActivity.class);
+                intent.putExtra(KEY_ID, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getId());
                 intent.putExtra(KEY_TITLE, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getTitle());
                 intent.putExtra(KEY_CONTENT, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getContent());
                 //intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
