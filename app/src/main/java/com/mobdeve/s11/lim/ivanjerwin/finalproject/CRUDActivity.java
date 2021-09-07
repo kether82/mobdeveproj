@@ -150,10 +150,17 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // toggle fav
+                DBHelper db = new DBHelper(CRUDActivity.this);
+                String title = etTitle.getText().toString().trim();
+                String content = etContent.getText().toString().trim();
+                int lock = convertBooltoInt(chpLock.isChecked());
+
                 if(chpFav.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Favorited(?)", Toast.LENGTH_SHORT).show();
+                    db.updateNote(id, title, content, null, 1, lock);
                 }
                 else {
+                    db.updateNote(id, title, content, null, 0, lock);
                 }
 
             }
@@ -163,12 +170,18 @@ public class CRUDActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // toggle lock
+                DBHelper db = new DBHelper(CRUDActivity.this);
+                String title = etTitle.getText().toString().trim();
+                String content = etContent.getText().toString().trim();
+                int fav = convertBooltoInt(chpFav.isChecked());
+
                 if(chpLock.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Locked", Toast.LENGTH_SHORT).show();
+                    db.updateNote(id, title, content, null, fav, 1);
                     // request pw prolly
                 }
                 else {
-
+                    db.updateNote(id, title, content, null, fav, 0);
                 }
 
             }
