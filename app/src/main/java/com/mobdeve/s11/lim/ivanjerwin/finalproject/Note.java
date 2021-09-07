@@ -1,5 +1,7 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
+import java.util.Comparator;
+
 public class Note {
     private String id;
     private String title;
@@ -80,6 +82,24 @@ public class Note {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    //new additions start here
+    public static Comparator<Note> test = new Comparator<Note>() {
+        @Override
+        public int compare(Note o1, Note o2) {
+            return returnGreaterVal(o1.isFavInt(), o2.isFavInt());
+        }
+    };
+
+    public static int returnGreaterVal(int num1, int num2){
+        if(num1 > num2)
+            return 1;
+        else if(num2 > num1)
+            return -1;
+        else
+            return 0;
+    }
+    //ends here (also added Collections.sort on line 52 of MainActivity.java)
 }
 
 /**

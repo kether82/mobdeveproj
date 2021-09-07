@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(MainActivity.this);
 
         this.rvNotes = findViewById(R.id.rv_notes);
+        Collections.sort(dataNotes, Note.test);
         this.rvNotes.setAdapter(new NoteAdapter(this.dataNotes));
         this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
 
