@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COL_IMG = "note_img";
     private static final String COL_IS_FAV = "note_fav";
     private static final String COL_IS_LOCKED = "note_lock";
+
+    private static DBHelper dbInstance;
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VER);
@@ -42,6 +45,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
         onCreate(db);
+    }
+
+    public static synchronized DBHelper getInstance(Context context){
+        if(dbInstance == null){
+            dbInstance = new DBHelper(context.getApplicationContext());
+        }
+        return dbInstance;
     }
 
     void addNote(String title, String content, byte[] img, int fav, int lock){
@@ -94,5 +104,17 @@ public class DBHelper extends SQLiteOpenHelper {
     void deleteAll(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
+    }
+
+    Cursor searchNote(String searchQuery){
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+            Log.d("DBHELPER", "searchNote: query "+cursor.getCount());
+        }
+        return cursor;
     }
 }

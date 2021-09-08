@@ -176,6 +176,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:clickable="true"
             android:foregroundTint="@color/custom_pink"
             android:iconifiedByDefault="false"
             android:queryHint="Search"

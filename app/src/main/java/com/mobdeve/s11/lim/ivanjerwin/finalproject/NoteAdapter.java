@@ -1,6 +1,7 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             }
         });
         return noteViewHolder;
+    }
+
+    public void setData(ArrayList<Note> data){
+        String TAG = "noteadapter";
+        this.dataNote.clear();
+        this.dataNote = data;
+        Log.d(TAG, "setData: "+data.size());
+        notifyDataSetChanged();
     }
 
     @Override

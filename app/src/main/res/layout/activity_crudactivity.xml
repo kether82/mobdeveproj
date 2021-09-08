@@ -257,7 +257,13 @@
                     app:chipIcon="@drawable/ic_baseline_save_24"
                     app:chipIconTint="@color/custom_black"
                     app:chipStrokeColor="@color/custom_black"
-                    app:chipStrokeWidth="0.3dp" />
+                    app:chipStrokeWidth="0dp" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/custom_black" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_delete"
@@ -271,7 +277,13 @@
                     app:chipIcon="@drawable/ic_baseline_delete_24"
                     app:chipIconTint="@color/custom_black"
                     app:chipStrokeColor="@color/custom_black"
-                    app:chipStrokeWidth="0.3dp" />
+                    app:chipStrokeWidth="0dp" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/custom_black" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_lock"
@@ -288,7 +300,13 @@
                     app:chipBackgroundColor="@color/custom_yellow"
                     app:chipIconEnabled="true"
                     app:chipStrokeColor="@color/custom_black"
-                    app:chipStrokeWidth="0.3dp" />
+                    app:chipStrokeWidth="0dp" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/custom_black" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chp_crud_fav"
@@ -306,7 +324,7 @@
                     app:chipBackgroundColor="@color/custom_yellow"
                     app:chipIconEnabled="true"
                     app:chipStrokeColor="@color/custom_black"
-                    app:chipStrokeWidth="0.3dp" />
+                    app:chipStrokeWidth="0dp" />
 
             </LinearLayout>
 

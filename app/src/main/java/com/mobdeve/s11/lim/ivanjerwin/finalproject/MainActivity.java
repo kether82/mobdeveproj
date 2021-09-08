@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnHome, btnSearch, btnSort;
     private SearchView svSearch;
 
+    private NoteAdapter noteAdapter;
+
     private ArrayList<Note> dataNotes = new ArrayList<Note>();
 
     private DBHelper dbHelper;
@@ -46,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerview(){
 
-        dbHelper = new DBHelper(MainActivity.this);
+        dbHelper = DBHelper.getInstance(MainActivity.this);
 
         this.rvNotes = findViewById(R.id.rv_notes);
         Collections.sort(dataNotes, Note.test);
-        this.rvNotes.setAdapter(new NoteAdapter(this.dataNotes));
+        noteAdapter = new NoteAdapter(this.dataNotes);
+        this.rvNotes.setAdapter(noteAdapter);
         this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
 
         SnapHelper helper = new PagerSnapHelper();
@@ -90,6 +94,21 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     svSearch.setVisibility(View.GONE);
                 }
+
+            }
+        });
+        this.svSearch = findViewById(R.id.sv_main_search);
+        this.svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                boolean result = searchData(query);
+                svSearch.setVisibility(View.GONE);
+                return result;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
         this.btnSort = findViewById(R.id.btn_main_sort);
@@ -104,6 +123,23 @@ public class MainActivity extends AppCompatActivity {
             while(cursor.moveToNext()) {
                 dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
             }
+        }
+    }
+
+    private boolean searchData(String query){
+        Cursor cursor = dbHelper.searchNote(query);
+        if(cursor.getCount() == 0){
+            Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else {
+            Log.d("Main", "searchData: here");
+            ArrayList<Note> searchNotes = new ArrayList<>();
+            while(cursor.moveToNext()) {
+                searchNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+            }
+            noteAdapter.setData(searchNotes);
+            return true;
         }
     }
 }
