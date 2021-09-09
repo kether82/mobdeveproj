@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnHome, btnSearch, btnSort;
     private SearchView svSearch;
 
-    private NoteAdapter noteAdapter;
 
     private ArrayList<Note> dataNotes = new ArrayList<Note>();
 
     private DBHelper dbHelper;
+    private NoteAdapter noteAdapter;
+
+    private boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +45,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initRecyclerview();
+        storeData();
         initFabAdd();
         initMenuButtons();
-        storeData();
     }
 
     private void initRecyclerview(){
 
-        dbHelper = DBHelper.getInstance(MainActivity.this);
+        dbHelper = new DBHelper(MainActivity.this);
 
         this.rvNotes = findViewById(R.id.rv_notes);
         Collections.sort(dataNotes, Note.test);
-        noteAdapter = new NoteAdapter(this.dataNotes);
-        this.rvNotes.setAdapter(noteAdapter);
         this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
+
+        this.noteAdapter = new NoteAdapter(this.dataNotes);
+        this.rvNotes.setAdapter(noteAdapter);
 
         SnapHelper helper = new PagerSnapHelper();
         helper.attachToRecyclerView(this.rvNotes);
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMenuButtons() {
+        //Home Button
         this.btnHome = findViewById(R.id.btn_main_home);
         this.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //Search button
         this.btnSearch = findViewById(R.id.btn_main_search);
 
         this.btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +118,51 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //Sort Button
         this.btnSort = findViewById(R.id.btn_main_sort);
+        this.btnSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ArrayList<Note> sortNotes = new ArrayList<Note>();
+
+                if(!clicked) {
+
+                    Cursor cursor = dbHelper.sortDescending();
+
+                    if(cursor.getCount() == 0){
+                        Toast.makeText(MainActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //Toast.makeText(MainActivity.this, "IN DESC", Toast.LENGTH_SHORT).show();
+                        while (cursor.moveToNext()){
+                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+                        }
+                    }
+                    noteAdapter.setData(sortNotes);
+                    clicked = true;
+
+                }
+
+                else {
+                    Cursor cursor = dbHelper.sortAscending();
+
+                    if(cursor.getCount() == 0){
+                        Toast.makeText(MainActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //Toast.makeText(MainActivity.this, "IN ASC", Toast.LENGTH_SHORT).show();
+                        while (cursor.moveToNext()){
+                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                        }
+                    }
+                    noteAdapter.setData(sortNotes);
+                    clicked = false;
+                }
+
+            }
+        });
     }
 
     private void storeData() {

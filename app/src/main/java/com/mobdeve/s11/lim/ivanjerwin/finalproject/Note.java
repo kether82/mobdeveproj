@@ -10,13 +10,13 @@ public class Note {
     private boolean isFav;
     private boolean isLocked;
     private String password;
-    private Date date;
+    private String date;
 
-    public Note(String id, String title, String content) {
+    public Note(String id, String title, String content, String date) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.date = new Date();
+        this.date = date;
     }
 
     public String getId() { return id; }
@@ -45,7 +45,7 @@ public class Note {
         return isLocked;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
