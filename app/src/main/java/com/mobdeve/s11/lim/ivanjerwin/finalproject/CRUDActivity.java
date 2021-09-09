@@ -2,10 +2,16 @@ package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.ImageCapture;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.CrossProcessCursor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -21,7 +27,11 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
+
 public class CRUDActivity extends AppCompatActivity {
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int CAMERA_REQUEST = 1888;
 
     //navbar
     private ImageButton btnHome;
@@ -141,8 +151,20 @@ public class CRUDActivity extends AppCompatActivity {
         fabAddImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String TAG = "CRUDACTIVITY";
                 // open camera(?)
-                Toast.makeText(CRUDActivity.this, "Camera", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CRUDActivity.this, "Camera", Toast.LENGTH_SHORT).show();
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d(TAG, "permi ask ");
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                }
+                else
+                {
+                    Log.d(TAG, "permi have ");
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
             }
         });
 
@@ -195,14 +217,18 @@ public class CRUDActivity extends AppCompatActivity {
                 String content = etContent.getText().toString().trim();
                 int fav = convertBooltoInt(chpFav.isChecked());
                 int lock = convertBooltoInt(chpLock.isChecked());
-                // byte[] img;
-                // BitmapFactory.decodeResource(CRUDActivity.this.getResources(), )
+
+                Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
+                byte[] img = null;
+                try {
+                    img = ImageConverter.getBytes(bm);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if(chpSave.getText().toString() == "Add"){
                     // add to db
-
-
-                    db.addNote(title, content, null, fav, lock);
+                    db.addNote(title, content, img, fav, lock);
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
                     returnToMain();
                 }else{
@@ -264,6 +290,34 @@ public class CRUDActivity extends AppCompatActivity {
         }
         db.deleteAll();
          */
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            else
+            {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
+        {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ivImage.setImageBitmap(photo);
+        }
     }
 
     public static int convertBooltoInt(boolean bool){
