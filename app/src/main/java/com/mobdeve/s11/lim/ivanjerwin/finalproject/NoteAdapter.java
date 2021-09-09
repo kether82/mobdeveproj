@@ -48,14 +48,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return noteViewHolder;
     }
 
-    public void setData(ArrayList<Note> data){
-        String TAG = "noteadapter";
-        this.dataNote.clear();
-        this.dataNote = data;
-        Log.d(TAG, "setData: "+data.size());
-        notifyDataSetChanged();
-    }
-
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull NoteViewHolder holder, int position) {
             Note currentNote = this.dataNote.get(position);

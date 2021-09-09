@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         //Toast.makeText(MainActivity.this, "IN DESC", Toast.LENGTH_SHORT).show();
                         while (cursor.moveToNext()){
-                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
                         }
                     }
                     noteAdapter.setData(sortNotes);
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             while(cursor.moveToNext()) {
-                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             }
         }
     }
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Main", "searchData: here");
             ArrayList<Note> searchNotes = new ArrayList<>();
             while(cursor.moveToNext()) {
-                searchNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                searchNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             }
             noteAdapter.setData(searchNotes);
             return true;
