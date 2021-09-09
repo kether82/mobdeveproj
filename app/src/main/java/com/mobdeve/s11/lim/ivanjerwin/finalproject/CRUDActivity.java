@@ -1,19 +1,14 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.ImageCapture;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.CrossProcessCursor;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -175,7 +170,7 @@ public class CRUDActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(CRUDActivity.this);
                 String title = etTitle.getText().toString().trim();
                 String content = etContent.getText().toString().trim();
-                int lock = convertBooltoInt(chpLock.isChecked());
+                int lock = Utilities.convertBooltoInt(chpLock.isChecked());
 
                 if(chpFav.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Favorited(?)", Toast.LENGTH_SHORT).show();
@@ -195,7 +190,7 @@ public class CRUDActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(CRUDActivity.this);
                 String title = etTitle.getText().toString().trim();
                 String content = etContent.getText().toString().trim();
-                int fav = convertBooltoInt(chpFav.isChecked());
+                int fav = Utilities.convertBooltoInt(chpFav.isChecked());
 
                 if(chpLock.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Locked", Toast.LENGTH_SHORT).show();
@@ -216,14 +211,14 @@ public class CRUDActivity extends AppCompatActivity {
                 DBHelper db = new DBHelper(CRUDActivity.this);
                 String title = etTitle.getText().toString().trim();
                 String content = etContent.getText().toString().trim();
-                int fav = convertBooltoInt(chpFav.isChecked());
-                int lock = convertBooltoInt(chpLock.isChecked());
+                int fav = Utilities.convertBooltoInt(chpFav.isChecked());
+                int lock = Utilities.convertBooltoInt(chpLock.isChecked());
                 byte[] img = null;
 
                 if (ivImage.getDrawable() == null){
                     Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
                     try {
-                        img = ImageConverter.getBytes(bm);
+                        img = Utilities.getBytes(bm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -322,13 +317,10 @@ public class CRUDActivity extends AppCompatActivity {
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             ivImage.setImageBitmap(photo);
+            ivImage.setVisibility(View.VISIBLE);
         }
     }
 
-    public static int convertBooltoInt(boolean bool){
-        if(bool) return 1;
-        else return 0;
-    }
 
     public void returnToMain() {
         finish();

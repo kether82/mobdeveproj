@@ -178,7 +178,16 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             while(cursor.moveToNext()) {
+                // id title content date img fav lock
                 dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+//                dataNotes.add( new Note(cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_ID)),
+//                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_TITLE)),
+//                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_CONTENT)),
+//                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_DATE)),
+//                                        cursor.getBlob(cursor.getColumnIndexOrThrow(DBHelper.COL_IMG)),
+//                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_FAV)),
+//                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_LOCKED))
+//                        ));
             }
         }
     }

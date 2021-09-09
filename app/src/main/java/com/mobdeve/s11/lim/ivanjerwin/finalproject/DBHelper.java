@@ -17,14 +17,14 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME ="NAVINotes.db";
     private static final int DB_VER = 1;
 
-    private static final String TABLE_NAME = "notes";
-    private static final String COL_ID = "_id";
-    private static final String COL_TITLE = "note_title";
-    private static final String COL_DATE = "note_date";
-    private static final String COL_CONTENT = "note_content";
-    private static final String COL_IMG = "note_img";
-    private static final String COL_IS_FAV = "note_fav";
-    private static final String COL_IS_LOCKED = "note_lock";
+    public static final String TABLE_NAME = "notes";
+    public static final String COL_ID = "_id";
+    public static final String COL_TITLE = "note_title";
+    public static final String COL_DATE = "note_date";
+    public static final String COL_CONTENT = "note_content";
+    public static final String COL_IMG = "note_img";
+    public static final String COL_IS_FAV = "note_fav";
+    public static final String COL_IS_LOCKED = "note_lock";
 
     private static DBHelper dbInstance;
 

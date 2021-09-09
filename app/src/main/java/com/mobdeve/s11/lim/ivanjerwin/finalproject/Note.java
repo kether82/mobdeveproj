@@ -19,6 +19,16 @@ public class Note {
         this.date = date;
     }
 
+    public Note(String id, String title, String content, String date, byte[] img, int isFav, int isLocked){
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.image = img;
+        this.isFav = Utilities.convertInttoBool(isFav);
+        this.isLocked = Utilities.convertInttoBool(isLocked);
+    }
+
     public String getId() { return id; }
 
     public byte[] getImage() {
