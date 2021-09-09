@@ -212,29 +212,34 @@ public class CRUDActivity extends AppCompatActivity {
         chpSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("A", "onClick: ");
                 DBHelper db = new DBHelper(CRUDActivity.this);
                 String title = etTitle.getText().toString().trim();
                 String content = etContent.getText().toString().trim();
                 int fav = convertBooltoInt(chpFav.isChecked());
                 int lock = convertBooltoInt(chpLock.isChecked());
-
-                Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
                 byte[] img = null;
-                try {
-                    img = ImageConverter.getBytes(bm);
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                if (ivImage.getDrawable() == null){
+                    Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
+                    try {
+                        img = ImageConverter.getBytes(bm);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("A", "onClick: ");
                 }
 
                 if(chpSave.getText().toString() == "Add"){
                     // add to db
-                    db.addNote(title, content, img, fav, lock);
+
+                    db.addNote(title, content, null, fav, lock);
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
                     returnToMain();
                 }else{
                     // update
                     DBHelper dbHelper = new DBHelper(CRUDActivity.this);
-                    db.updateNote(id, title, content, null, fav, lock);
+                    db.updateNote(id, title, content, img, fav, lock);
                     returnToMain();
                 }
             }
