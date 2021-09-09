@@ -1,5 +1,6 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,5 +58,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     @Override
     public int getItemCount() {
         return dataNote.size();
+    }
+
+    public void setData(ArrayList<Note> dataNote){
+        this.dataNote.clear();
+        this.dataNote.addAll(dataNote);
+        notifyDataSetChanged();
     }
 }

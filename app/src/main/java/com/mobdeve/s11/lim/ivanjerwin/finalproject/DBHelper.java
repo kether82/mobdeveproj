@@ -95,4 +95,35 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE_NAME);
     }
+
+    Cursor sortAscending(){
+
+        String query = "SELECT * FROM " + TABLE_NAME; //+ " ORDER BY " + COL_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db!= null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        else Toast.makeText(context, "SORT ASC FAIL", Toast.LENGTH_SHORT).show();
+
+        return cursor;
+    }
+
+    Cursor sortDescending(){
+
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL_ID +" DESC";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db!= null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        else Toast.makeText(context, "SORT DESC FAIL", Toast.LENGTH_SHORT).show();
+
+        return cursor;
+
+    }
 }
