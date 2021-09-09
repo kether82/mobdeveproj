@@ -52,7 +52,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             Note currentNote = this.dataNote.get(position);
             holder.setTitle(currentNote.getTitle());
             holder.setContent(currentNote.getContent());
-            holder.setDate(currentNote.getDate().toString());
+            holder.setDate(currentNote.getDate());
     }
 
     @Override

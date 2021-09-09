@@ -11,13 +11,7 @@ public class Date {
 
         this.year = c.get(Calendar.YEAR);
         this.day_in_month = c.get(Calendar.DAY_OF_MONTH);
-        this.month = c.get(Calendar.MONTH);
-    }
-
-    public Date(int year, int month, int day_in_month) {
-        this.year = year;
-        this.day_in_month = day_in_month;
-        this.month = month;
+        this.month = c.get(Calendar.MONTH) + 1;
     }
 
     public String toString() {

@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "notes";
     private static final String COL_ID = "_id";
     private static final String COL_TITLE = "note_title";
+    private static final String COL_DATE = "note_date";
     private static final String COL_CONTENT = "note_content";
     private static final String COL_IMG = "note_img";
     private static final String COL_IS_FAV = "note_fav";
@@ -33,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query =
                 "CREATE TABLE " + TABLE_NAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COL_TITLE + " TEXT, " + COL_CONTENT + " TEXT, "+ COL_IMG + " BLOB, " +
+                        COL_TITLE + " TEXT, " + COL_CONTENT + " TEXT, " + COL_DATE + " TEXT, " + COL_IMG + " BLOB, " +
                         COL_IS_FAV + " INTEGER , " + COL_IS_LOCKED + " INTEGER )";
         db.execSQL(query);
     }
@@ -47,12 +48,14 @@ public class DBHelper extends SQLiteOpenHelper {
     void addNote(String title, String content, byte[] img, int fav, int lock){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        Date date = new Date();
 
         cv.put(COL_TITLE, title);
         cv.put(COL_CONTENT, content);
         cv.put(COL_IMG, img);
         cv.put(COL_IS_FAV, fav);
         cv.put(COL_IS_LOCKED, lock);
+        cv.put(COL_DATE, date.toString());
 
         long res = db.insert(TABLE_NAME, null, cv);
         if(res == -1){

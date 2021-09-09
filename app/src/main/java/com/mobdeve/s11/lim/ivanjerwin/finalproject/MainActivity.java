@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         //Toast.makeText(MainActivity.this, "IN DESC", Toast.LENGTH_SHORT).show();
                         while (cursor.moveToNext()){
-                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
                         }
                     }
                     noteAdapter.setData(sortNotes);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         //Toast.makeText(MainActivity.this, "IN ASC", Toast.LENGTH_SHORT).show();
                         while (cursor.moveToNext()){
-                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
                         }
                     }
                     noteAdapter.setData(sortNotes);
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             while(cursor.moveToNext()) {
-                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             }
         }
     }
