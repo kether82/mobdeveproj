@@ -1,5 +1,6 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -127,9 +133,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean searchData(String query){
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        };
+//        Executor executor = Executors.newSingleThreadExecutor();
+//        executor.execute(runnable);
+//        return true;
         Cursor cursor = dbHelper.searchNote(query);
         if(cursor.getCount() == 0){
-            Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT);
             return false;
         }
         else {
@@ -141,5 +156,6 @@ public class MainActivity extends AppCompatActivity {
             noteAdapter.setData(searchNotes);
             return true;
         }
+
     }
 }
