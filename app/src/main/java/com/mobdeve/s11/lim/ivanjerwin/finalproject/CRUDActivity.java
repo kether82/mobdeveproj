@@ -95,10 +95,30 @@ public class CRUDActivity extends AppCompatActivity {
             String title = i.getStringExtra(NoteAdapter.KEY_TITLE);
             String content = i.getStringExtra(NoteAdapter.KEY_CONTENT);
             String date = i.getStringExtra(NoteAdapter.KEY_DATE);
+            Boolean isFav = i.getBooleanExtra(NoteAdapter.KEY_FAV, false);
+            Boolean isLock = i.getBooleanExtra(NoteAdapter.KEY_LOCK, false);
+            Bitmap bm = null;
+
+            try {
+                bm = Utilities.getImage(i.getByteArrayExtra(NoteAdapter.KEY_IMG));
+                Log.d("img", "onCreate:" + bm.toString());
+            }catch ( Exception e){
+                e.printStackTrace();
+            }
+            Log.d("isfav", "isfav: "+isFav.toString());
+
+
+
 
             etTitle.setText(title);
             etContent.setText(content);
             tvDate.setText(date);
+            chpLock.setChecked(isLock);
+            chpFav.setChecked(isFav);
+            if(bm != null){
+                setImageView(bm);
+            }
+
         } else{
             chpSave.setText("Add");
             chpSave.setChipIconResource(R.drawable.ic_baseline_add_24);
@@ -215,20 +235,20 @@ public class CRUDActivity extends AppCompatActivity {
                 int lock = Utilities.convertBooltoInt(chpLock.isChecked());
                 byte[] img = null;
 
-                if (ivImage.getDrawable() == null){
+                if (ivImage.getDrawable() != null){
                     Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
                     try {
                         img = Utilities.getBytes(bm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Log.d("A", "onClick: ");
+                    Log.d("A", "onClick: "+ img.toString());
                 }
 
                 if(chpSave.getText().toString() == "Add"){
                     // add to db
 
-                    db.addNote(title, content, null, fav, lock);
+                    db.addNote(title, content, img, fav, lock);
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
                     returnToMain();
                 }else{
@@ -316,9 +336,15 @@ public class CRUDActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK)
         {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ivImage.setImageBitmap(photo);
-            ivImage.setVisibility(View.VISIBLE);
+            setImageView(photo);
         }
+    }
+
+    private void setImageView(Bitmap photo){
+        ivImage.setMinimumWidth(photo.getWidth());
+        ivImage.setMinimumHeight(photo.getHeight());
+        ivImage.setVisibility(View.VISIBLE);
+        ivImage.setImageBitmap(photo);
     }
 
 
