@@ -18,6 +18,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public static final String KEY_TITLE = "KEY_TITLE";
     public static final String KEY_CONTENT = "KEY_CONTENT";
     public static final String KEY_DATE = "KEY_DATE";
+    public static final String KEY_IMG ="KEY_IMG";
+    public static final String KEY_FAV ="KEY_FAV";
+    public static final String KEY_LOCK ="KEY_LOCK";
 
     private ArrayList<Note> dataNote;
 
@@ -42,6 +45,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
                 intent.putExtra(KEY_TITLE, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getTitle());
                 intent.putExtra(KEY_CONTENT, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getContent());
                 intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
+                intent.putExtra(KEY_IMG, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getImage());
+                intent.putExtra(KEY_FAV, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isFav());
+                intent.putExtra(KEY_LOCK, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isLocked());
                 v.getContext().startActivity(intent);
             }
         });
