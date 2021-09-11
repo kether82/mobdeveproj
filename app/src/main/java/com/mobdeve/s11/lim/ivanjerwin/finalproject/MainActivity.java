@@ -186,9 +186,11 @@ public class MainActivity extends AppCompatActivity {
                                         cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_DATE)),
                                         cursor.getBlob(cursor.getColumnIndexOrThrow(DBHelper.COL_IMG)),
                                         cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_FAV)),
-                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_LOCKED))
+                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_LOCKED)),
+                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_PASSWORD))
                         ));
             }
+//            Log.d("pw", "pw: "+dataNotes.get(cursor.getCount()-2).getPassword());
         }
     }
 

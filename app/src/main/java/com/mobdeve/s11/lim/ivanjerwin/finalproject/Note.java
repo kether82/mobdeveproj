@@ -19,7 +19,7 @@ public class Note {
         this.date = date;
     }
 
-    public Note(String id, String title, String content, String date, byte[] img, int isFav, int isLocked){
+    public Note(String id, String title, String content, String date, byte[] img, int isFav, int isLocked, String pw){
         this.id = id;
         this.title = title;
         this.content = content;
@@ -27,6 +27,7 @@ public class Note {
         this.image = img;
         this.isFav = Utilities.convertInttoBool(isFav);
         this.isLocked = Utilities.convertInttoBool(isLocked);
+        this.password = pw;
     }
 
     public String getId() { return id; }

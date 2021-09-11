@@ -30,12 +30,11 @@ public class CRUDActivity extends AppCompatActivity {
 
     //navbar
     private ImageButton btnHome;
-    private ImageButton btnSearch;
+    private ImageButton btnLock;
     private ImageButton btnMore;
     private TextView tvHome;
     private TextView tvSearch;
     private TextView tvMore;
-    private SearchView svSearch;
 
 
     //note
@@ -43,6 +42,7 @@ public class CRUDActivity extends AppCompatActivity {
     private EditText etContent;
     private ImageView ivImage;
     private TextView tvDate;
+    private EditText etPassword;
 
     //more options
     private Chip chpSave;
@@ -70,14 +70,14 @@ public class CRUDActivity extends AppCompatActivity {
         etContent = findViewById(R.id.et_crud_content);
         ivImage = findViewById(R.id.iv_crud_img);
         tvDate = findViewById(R.id.tv_crud_date);
+        etPassword = findViewById(R.id.et_crud_password);
 
         tvHome = findViewById(R.id.tv_crud_home);
         tvSearch = findViewById(R.id.tv_crud_search);
-        svSearch = findViewById(R.id.sv_crud_search);
         tvMore = findViewById(R.id.tv_crud_more);
         btnHome = findViewById(R.id.btn_crud_home);
         btnMore = findViewById(R.id.btn_crud_more);
-        btnSearch = findViewById(R.id.btn_crud_search);
+        btnLock = findViewById(R.id.btn_crud_lock);
 
         fabAddImg = findViewById(R.id.fab_crud_add_img);
 
@@ -98,6 +98,7 @@ public class CRUDActivity extends AppCompatActivity {
             Boolean isFav = i.getBooleanExtra(NoteAdapter.KEY_FAV, false);
             Boolean isLock = i.getBooleanExtra(NoteAdapter.KEY_LOCK, false);
             Bitmap bm = null;
+            String pw = i.getStringExtra(NoteAdapter.KEY_PW);
 
             try {
                 bm = Utilities.getImage(i.getByteArrayExtra(NoteAdapter.KEY_IMG));
@@ -118,6 +119,7 @@ public class CRUDActivity extends AppCompatActivity {
             if(bm != null){
                 setImageView(bm);
             }
+            etPassword.setText(pw);
 
         } else{
             chpSave.setText("Add");
@@ -151,14 +153,15 @@ public class CRUDActivity extends AppCompatActivity {
             }
         });
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        btnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // show search bar
-                if ((svSearch.getVisibility() == View.GONE)) {
-                    svSearch.setVisibility(View.VISIBLE);
-                } else {
-                    svSearch.setVisibility(View.GONE);
+                if(etPassword.getVisibility()==View.VISIBLE){
+                    etPassword.setVisibility(View.INVISIBLE);
+                    fabAddImg.setVisibility(View.VISIBLE);
+                }else{
+                    etPassword.setVisibility(View.VISIBLE);
+                    fabAddImg.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -194,10 +197,10 @@ public class CRUDActivity extends AppCompatActivity {
 
                 if(chpFav.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Favorited(?)", Toast.LENGTH_SHORT).show();
-                    db.updateNote(id, title, content, null, 1, lock);
+                    db.updateNote(id, title, content, 1, lock);
                 }
                 else {
-                    db.updateNote(id, title, content, null, 0, lock);
+                    db.updateNote(id, title, content, 0, lock);
                 }
 
             }
@@ -214,11 +217,11 @@ public class CRUDActivity extends AppCompatActivity {
 
                 if(chpLock.isChecked()) {
                     Toast.makeText(CRUDActivity.this, "Locked", Toast.LENGTH_SHORT).show();
-                    db.updateNote(id, title, content, null, fav, 1);
+                    db.updateNote(id, title, content,  fav, 1);
                     // request pw prolly
                 }
                 else {
-                    db.updateNote(id, title, content, null, fav, 0);
+                    db.updateNote(id, title, content, fav, 0);
                 }
 
             }
@@ -234,28 +237,30 @@ public class CRUDActivity extends AppCompatActivity {
                 int fav = Utilities.convertBooltoInt(chpFav.isChecked());
                 int lock = Utilities.convertBooltoInt(chpLock.isChecked());
                 byte[] img = null;
+                String pw = etPassword.getText().toString().trim();
+                Log.d("PW", "onClick: "+ pw);
 
                 if (ivImage.getDrawable() != null){
                     Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
                     try {
                         img = Utilities.getBytes(bm);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.d("img", "onClick: "+ e.getStackTrace().toString());
                     }
                     Log.d("A", "onClick: "+ img.toString());
                 }
 
                 if(chpSave.getText().toString() == "Add"){
                     // add to db
-
-                    db.addNote(title, content, img, fav, lock);
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
-                    returnToMain();
+                    db.addNote(title, content, img, fav, lock, pw);
+
+//                    returnToMain();
                 }else{
                     // update
                     DBHelper dbHelper = new DBHelper(CRUDActivity.this);
-                    db.updateNote(id, title, content, img, fav, lock);
-                    returnToMain();
+                    db.updateNote(id, title, content, img, fav, lock, pw);
+//                    returnToMain();
                 }
             }
         });

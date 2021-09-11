@@ -21,6 +21,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public static final String KEY_IMG ="KEY_IMG";
     public static final String KEY_FAV ="KEY_FAV";
     public static final String KEY_LOCK ="KEY_LOCK";
+    public static final String KEY_PW ="KEY_PW";
 
     private ArrayList<Note> dataNote;
 
@@ -48,6 +49,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
                 intent.putExtra(KEY_IMG, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getImage());
                 intent.putExtra(KEY_FAV, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isFav());
                 intent.putExtra(KEY_LOCK, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isLocked());
+                intent.putExtra(KEY_PW, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getPassword());
                 v.getContext().startActivity(intent);
             }
         });
