@@ -7,7 +7,8 @@
     android:layout_marginLeft="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginRight="8dp"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    android:foregroundTint="@color/custom_pink">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_note"
@@ -61,6 +62,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="@color/custom_pink"
+                    android:clickable="true"
+                    android:foregroundTint="@color/custom_pink"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_footer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_favorite_border_24"
+                    app:tint="@color/custom_pink" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,7 +143,7 @@
                 android:layout_height="0dp"
                 android:background="@color/custom_yellow"
                 android:elevation="20dp"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/cl_footer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -117,6 +117,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    void updateNoteFav(String _id, boolean fav){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COL_IS_FAV, Utilities.convertBooltoInt(fav));
+
+        long result = db.update(TABLE_NAME, cv, "_id = ?", new String[]{_id});
+    }
+
     void delNote(String _id){
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "_id = ?", new String[]{_id});

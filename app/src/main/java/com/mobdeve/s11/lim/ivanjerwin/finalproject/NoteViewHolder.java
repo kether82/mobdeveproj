@@ -15,7 +15,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private TextView tvTitle, tvContent, tvDate;
     private CardView cvNote;
-    private ImageView ivLock;
+    private ImageView ivLock, ivFav;
 
 
     public NoteViewHolder(@NonNull @NotNull View itemView) {
@@ -26,6 +26,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         this.tvDate = itemView.findViewById(R.id.tv_date);
         this.cvNote = itemView.findViewById(R.id.cv_note);
         this.ivLock = itemView.findViewById(R.id.iv_lock);
+        this.ivFav = itemView.findViewById(R.id.iv_favorite);
     }
 
     public void setTitle(String title) {this.tvTitle.setText(title);}
@@ -36,5 +37,13 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         if (bool){
             ivLock.setVisibility(View.VISIBLE);
         }else ivLock.setVisibility(View.INVISIBLE);
+    }
+    public void setIvFav(boolean bool){
+        if(bool) ivFav.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else ivFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+    }
+
+    public ImageView getIvFav() {
+        return ivFav;
     }
 }
