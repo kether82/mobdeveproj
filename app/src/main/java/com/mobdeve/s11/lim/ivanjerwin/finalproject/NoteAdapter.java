@@ -1,13 +1,18 @@
 package com.mobdeve.s11.lim.ivanjerwin.finalproject;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -41,16 +46,38 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(itemView.getContext(), CRUDActivity.class);
-                intent.putExtra(KEY_ID, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getId());
-                intent.putExtra(KEY_TITLE, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getTitle());
-                intent.putExtra(KEY_CONTENT, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getContent());
-                intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
-                intent.putExtra(KEY_IMG, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getImage());
-                intent.putExtra(KEY_FAV, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isFav());
-                intent.putExtra(KEY_LOCK, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isLocked());
-                intent.putExtra(KEY_PW, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getPassword());
-                v.getContext().startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(parent.getContext());
+
+                builder.setView(R.layout.note_password).setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Dialog dialogObj = Dialog.class.cast(dialog);
+                        EditText etPassword = dialogObj.findViewById(R.id.et_dialog_pw);
+                        String password = etPassword.getText().toString().trim();
+                        if(password.equals(dataNote.get(noteViewHolder.getBindingAdapterPosition()).getPassword())){
+                            Intent intent = new Intent(itemView.getContext(), CRUDActivity.class);
+                            intent.putExtra(KEY_ID, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getId());
+                            intent.putExtra(KEY_TITLE, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getTitle());
+                            intent.putExtra(KEY_CONTENT, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getContent());
+                            intent.putExtra(KEY_DATE,dataNote.get(noteViewHolder.getBindingAdapterPosition()).getDate().toString());
+                            intent.putExtra(KEY_IMG, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getImage());
+                            intent.putExtra(KEY_FAV, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isFav());
+                            intent.putExtra(KEY_LOCK, dataNote.get(noteViewHolder.getBindingAdapterPosition()).isLocked());
+                            intent.putExtra(KEY_PW, dataNote.get(noteViewHolder.getBindingAdapterPosition()).getPassword());
+                            v.getContext().startActivity(intent);
+                        }else{
+                            Log.d("PW:", dataNote.get(noteViewHolder.getBindingAdapterPosition()).getPassword());
+                            Toast.makeText(builder.getContext(), "Incorrect Password", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
         return noteViewHolder;
@@ -62,6 +89,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             holder.setTitle(currentNote.getTitle());
             holder.setContent(currentNote.getContent());
             holder.setDate(currentNote.getDate());
+            holder.setIvLock(currentNote.isLocked());
     }
 
     @Override

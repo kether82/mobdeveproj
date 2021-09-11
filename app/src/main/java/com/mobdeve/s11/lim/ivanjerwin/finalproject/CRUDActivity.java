@@ -126,6 +126,7 @@ public class CRUDActivity extends AppCompatActivity {
             chpSave.setChipIconResource(R.drawable.ic_baseline_add_24);
 
             tvDate.setText(new Date().toString());
+            ivImage.setImageBitmap(null);
         }
 
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +242,7 @@ public class CRUDActivity extends AppCompatActivity {
                 Log.d("PW", "onClick: "+ pw);
 
                 if (ivImage.getDrawable() != null){
-                    Bitmap bm=((BitmapDrawable)ivImage.getDrawable()).getBitmap();
+                    Bitmap bm = Utilities.drawableToBitmap(ivImage.getDrawable());
                     try {
                         img = Utilities.getBytes(bm);
                     } catch (IOException e) {
@@ -255,12 +256,12 @@ public class CRUDActivity extends AppCompatActivity {
                     Toast.makeText(CRUDActivity.this,"Added" , Toast.LENGTH_SHORT);
                     db.addNote(title, content, img, fav, lock, pw);
 
-//                    returnToMain();
+                    returnToMain();
                 }else{
                     // update
                     DBHelper dbHelper = new DBHelper(CRUDActivity.this);
                     db.updateNote(id, title, content, img, fav, lock, pw);
-//                    returnToMain();
+                    returnToMain();
                 }
             }
         });
