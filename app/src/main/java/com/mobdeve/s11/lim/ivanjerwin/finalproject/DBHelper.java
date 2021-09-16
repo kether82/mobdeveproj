@@ -178,6 +178,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    Cursor sortByFav(){
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL_IS_FAV +" DESC";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db!= null){
+            cursor = db.rawQuery(query, null);
+        }
+
+        else Toast.makeText(context, "SORT DESC FAIL", Toast.LENGTH_SHORT).show();
+
+        return cursor;
+    }
+
     Cursor searchNote(String searchQuery){
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'" + " AND NOT "+ COL_IS_LOCKED;
         SQLiteDatabase db = this.getReadableDatabase();

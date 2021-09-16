@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         initMenuButtons();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sortFav();
+    }
+
     private void initRecyclerview(){
 
         dbHelper = new DBHelper(MainActivity.this);
@@ -167,7 +173,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void sortFav(){
+        ArrayList<Note> sortNotesFav = new ArrayList<Note>();
 
+            Cursor cursor = dbHelper.sortByFav();
+
+                    if(cursor.getCount() == 0){
+                        Toast.makeText(MainActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+
+                        sortNotesFav = retrieveDataFromCursor(cursor);
+                    }
+                    noteAdapter.setData(sortNotesFav);
+    }
     private void storeData() {
         Cursor cursor = dbHelper.readAll();
         if(cursor.getCount() == 0){
