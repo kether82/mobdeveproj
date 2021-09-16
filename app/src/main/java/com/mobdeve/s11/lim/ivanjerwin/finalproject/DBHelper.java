@@ -179,7 +179,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     Cursor searchNote(String searchQuery){
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE '%" + searchQuery + "%'" + " AND NOT "+ COL_IS_LOCKED;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

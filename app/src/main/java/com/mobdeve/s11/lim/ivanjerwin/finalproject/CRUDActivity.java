@@ -159,7 +159,7 @@ public class CRUDActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(etPassword.getVisibility()==View.VISIBLE){
                     etPassword.setVisibility(View.INVISIBLE);
-                    fabAddImg.setVisibility(View.VISIBLE);
+                    if(llCrudMore.getVisibility()==View.INVISIBLE) fabAddImg.setVisibility(View.VISIBLE);
                 }else{
                     etPassword.setVisibility(View.VISIBLE);
                     fabAddImg.setVisibility(View.INVISIBLE);

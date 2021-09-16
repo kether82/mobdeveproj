@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initRecyclerview();
         storeData();
         initFabAdd();
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         this.rvNotes = findViewById(R.id.rv_notes);
         Collections.sort(dataNotes, Note.test);
         this.rvNotes.setLayoutManager(new GridLayoutManager(this, 2));
-
+        Log.d("ARL", "initRecyclerview: "+dataNotes.size());
         this.noteAdapter = new NoteAdapter(this.dataNotes);
         this.rvNotes.setAdapter(noteAdapter);
 
@@ -142,9 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else {
                         //Toast.makeText(MainActivity.this, "IN DESC", Toast.LENGTH_SHORT).show();
-                        while (cursor.moveToNext()){
-                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-                        }
+                        sortNotes = retrieveDataFromCursor(cursor);
                     }
                     noteAdapter.setData(sortNotes);
                     clicked = true;
@@ -159,9 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else {
                         //Toast.makeText(MainActivity.this, "IN ASC", Toast.LENGTH_SHORT).show();
-                        while (cursor.moveToNext()){
-                            sortNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-                        }
+                        sortNotes = retrieveDataFromCursor(cursor);
                     }
                     noteAdapter.setData(sortNotes);
                     clicked = false;
@@ -177,19 +174,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "NO DATA", Toast.LENGTH_SHORT).show();
         }
         else {
-            while(cursor.moveToNext()) {
                 // id title content date img fav lock
 //                dataNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-                dataNotes.add( new Note(cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_ID)),
-                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_TITLE)),
-                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_CONTENT)),
-                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_DATE)),
-                                        cursor.getBlob(cursor.getColumnIndexOrThrow(DBHelper.COL_IMG)),
-                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_FAV)),
-                                        cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_LOCKED)),
-                                        cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_PASSWORD))
-                        ));
-            }
+                dataNotes = retrieveDataFromCursor(cursor);
+                noteAdapter.setData(dataNotes);
 //            Log.d("pw", "pw: "+dataNotes.get(cursor.getCount()-2).getPassword());
         }
     }
@@ -205,19 +193,37 @@ public class MainActivity extends AppCompatActivity {
 //        executor.execute(runnable);
 //        return true;
         Cursor cursor = dbHelper.searchNote(query);
+        ArrayList<Note> searchNotes = new ArrayList<>();
+//        Log.d("Main", "searchData: here" + cursor.getCount());
         if(cursor.getCount() == 0){
-            Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT);
+//            Log.d("Main1", "searchData: here" + cursor.getCount());
+            noteAdapter.setData(searchNotes);
+            Toast.makeText(MainActivity.this, "NO DATA FOUND", Toast.LENGTH_SHORT).show();
             return false;
         }
         else {
-            Log.d("Main", "searchData: here");
-            ArrayList<Note> searchNotes = new ArrayList<>();
-            while(cursor.moveToNext()) {
-                searchNotes.add( new Note(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-            }
+//            Log.d("Main2", "searchData: here" + cursor.getCount());
+            searchNotes = retrieveDataFromCursor(cursor);
             noteAdapter.setData(searchNotes);
+
             return true;
         }
 
+    }
+
+    private ArrayList<Note> retrieveDataFromCursor(Cursor cursor){
+        ArrayList<Note> alNote = new ArrayList<>();
+        while (cursor.moveToNext() && cursor.getCount() != 0){
+            alNote.add( new Note(cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_TITLE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_CONTENT)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_DATE)),
+                    cursor.getBlob(cursor.getColumnIndexOrThrow(DBHelper.COL_IMG)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_FAV)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COL_IS_LOCKED)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COL_PASSWORD))));
+        }
+//        Log.d("Arraylist", "retrieveDataFromCursor: "+alNote.size());
+        return alNote;
     }
 }
