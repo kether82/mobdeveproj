@@ -115,6 +115,7 @@
         android:layout_height="0dp"
         android:background="@color/custom_black"
         android:elevation="4dp"
+        android:fadeScrollbars="true"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
