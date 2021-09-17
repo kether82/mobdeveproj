@@ -197,7 +197,7 @@ public class CRUDActivity extends AppCompatActivity {
                 int lock = Utilities.convertBooltoInt(chpLock.isChecked());
 
                 if(chpFav.isChecked()) {
-                    Toast.makeText(CRUDActivity.this, "Favorited(?)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CRUDActivity.this, "Favorited", Toast.LENGTH_SHORT).show();
                     db.updateNote(id, title, content, 1, lock);
                 }
                 else {
